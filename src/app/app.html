@@ -1,14 +1,24 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
       <ion-title>Menu</ion-title>
+      <ion-buttons end>
+        <button ion-button clear icon-only color="light">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <button ion-item (click)="home()" menuClose>
+        <ion-icon name="list" item-start></ion-icon>
+        <ion-label>Your Shopping Lists</ion-label>
+      </button>
+      <button ion-item (click)="promptDeleteLists()" menuClose>
+        <ion-icon color="danger" name="trash" item-start></ion-icon>
+        <ion-label color="danger">Delete All Lists</ion-label>
       </button>
     </ion-list>
   </ion-content>

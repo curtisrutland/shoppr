@@ -1,23 +1,35 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Shopping List</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only clear color="light" (click)="showSettings()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-item id="list-title-item">
+    <ion-label floating>List Name (Optional)</ion-label>
+    <ion-input type="text" id="list-title" clearInput [(ngModel)]="list.title" novalidate (ionChange)="update()"></ion-input>
+  </ion-item>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
+
+    <ion-item *ngFor="let item of listItems">
+      <ion-checkbox color="primary" [(ngModel)]="item.checked" (ionChange)="update()"></ion-checkbox>
+      <ion-label>{{item.text}}</ion-label>
+      <button ion-button clear icon-only color="danger" item-end (click)="remove(item)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-item>
+      <!-- <ion-icon name="add" item-start></ion-icon> -->
+      <ion-input #newitem type="text" [(ngModel)]="newItem" placeholder="Add Item" (ionBlur)="add()"></ion-input>
+    </ion-item>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
 </ion-content>
